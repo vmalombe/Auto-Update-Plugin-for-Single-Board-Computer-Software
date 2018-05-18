@@ -1,11 +1,18 @@
 #!/bin/sh
+echo ------------------------------------
+echo $(date)
 
-#Go into directory
-cd Pi_LED_Blinking
+#Go into the software directory
+cd /home/pi/AutoUpdatePlugin/*/
+
 #Then fetch and merge remote git to clone
-git pull https://github.com/vmalombe/Pi_LED_Blinking.git
+echo "----------------------------------------------" >> /home/pi/logs/update 2>&1 
+echo $(date) >> /home/pi/logs/update 2>&1
+git pull https://github.com/vmalombe/LED_Dim.git  >> /home/pi/logs/update 2>&1
+
+#Kill the old process
+kill $(pgrep python)
 
 #And then run it afresh
-#sudo python PiFreq-Auto.py
-
+python /home/pi/AutoUpdatePlugin/*/*.py # > /home/pi/logs/update 2>&1
 #End
